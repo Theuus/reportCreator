@@ -44,6 +44,30 @@ O conteúdo do arquivo de saída deve resumir os seguintes dados:
 
 Este sistema deve estar sempre trabalhando. Todos os arquivos novos quando estiver disponível, deve ser processado.
 
+### Implementação
+ Utilizei o framework Camel Bindy para facilitar o gerenciamento dos arquivos já processados, também para leitura e slipt do arquivo, assim como sua escrita no arquivo de sáida.
+
+Pode-se executar a aplicação pelo método main ou utilizando docker.
+
+No arquivo properties é possível definir os diretórios utilizados durante o processamento:
+
+```
+input.dir = ${HOME}/data/in
+output.dir = ${HOME}/data/out
+```
+
+### Makefile
+O Makefile visa facilitar a execução da aplicação, e tem os seguintes targets disponíveis:
+
+```
+build:
+    # build do projeto, bem como das imagens docker
+
+run:
+    # inicia a aplicação (todos via docker) e cria o volume para adicionar arquivos para o processamento. 
+    input: $HOME/data/in
+    output: $HOME/data/out
+```
 
 
 Segue exemplo de relatório gerado:
