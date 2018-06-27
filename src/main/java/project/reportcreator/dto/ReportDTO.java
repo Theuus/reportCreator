@@ -10,6 +10,19 @@ public class ReportDTO {
 	
 	private String worstSalesmanName;
 
+	public String infosToWrite() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Report");
+		builder.append("\nSalesman Count: ");
+		builder.append(this.salesmanQuantity);
+		builder.append("\nClient Count: ");
+		builder.append(this.clientQuantity);
+		builder.append("\nMost expensive sale ID: ");
+		builder.append(this.mostExpensiveSaleId);
+		builder.append("\nWorst Salesman: ");
+		builder.append(this.worstSalesmanName);
+		return builder.toString();
+	}
 	public int getSalesmanQuantity() {
 		return salesmanQuantity;
 	}
