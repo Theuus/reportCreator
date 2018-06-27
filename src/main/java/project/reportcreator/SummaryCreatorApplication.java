@@ -1,4 +1,4 @@
-package project.summarycreator;
+package project.reportcreator;
 
 public class SummaryCreatorApplication
 {

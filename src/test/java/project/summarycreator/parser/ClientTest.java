@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import project.summarycreator.dto.Client;
+import project.reportcreator.model.Client;
 
 public class ClientTest {
 

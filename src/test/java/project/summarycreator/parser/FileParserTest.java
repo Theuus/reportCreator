@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import project.summarycreator.dto.ListaDeAbacaxi;
+import project.reportcreator.model.ListaDeAbacaxi;
+import project.reportcreator.parser.FileParser;
 
 public class FileParserTest {
 
@@ -20,7 +21,7 @@ public class FileParserTest {
 		Path caminho = Paths.get(System.getProperty("user.home"), 
 		        "data/in/teste.dat");
 
-		ListaDeAbacaxi listaDeAbacaxi = fileParser.fileParser(Files.lines(caminho), "ç");
+		ListaDeAbacaxi listaDeAbacaxi = fileParser.parser(Files.lines(caminho), "ç");
 		
 		assertEquals(2, listaDeAbacaxi.getListSalesman().size());
 		assertEquals(2, listaDeAbacaxi.getListClient().size());

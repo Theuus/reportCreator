@@ -1,4 +1,4 @@
-package project.summarycreator.dto;
+package project.reportcreator.model;
 
 public class Client {
 

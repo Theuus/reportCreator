@@ -1,4 +1,4 @@
-package project.summarycreator.dto;
+package project.reportcreator.model;
 
 import java.util.ArrayList;
 import java.util.List;

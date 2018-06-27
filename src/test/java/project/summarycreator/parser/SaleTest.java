@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import project.summarycreator.dto.Sale;
+import project.reportcreator.model.Sale;
 
 public class SaleTest {
 
@@ -24,6 +24,8 @@ public class SaleTest {
 		assertEquals(2, sale.getListItem().get(1).getId());
 		assertEquals(3, sale.getListItem().get(1).getQuantity());
 		assertEquals(10, sale.getListItem().get(1).getPrice(), 0.0);
+		assertEquals(3*10, sale.getListItem().get(1).getTotalPrice(), 0.0);
+
 	
 	}
 

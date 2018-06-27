@@ -3,7 +3,7 @@ package project.summarycreator.parser;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import project.summarycreator.dto.Salesman;
+import project.reportcreator.model.Salesman;
 
 public class SalesmanTest extends TestCase {
 

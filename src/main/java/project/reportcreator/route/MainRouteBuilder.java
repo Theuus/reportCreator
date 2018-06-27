@@ -1,4 +1,4 @@
-package project.summarycreator.route;
+package project.reportcreator.route;
 
 import org.apache.camel.builder.RouteBuilder;
 

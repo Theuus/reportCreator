@@ -1,17 +1,17 @@
-package project.summarycreator.parser;
+package project.reportcreator.parser;
 
 import java.util.stream.Stream;
 
-import project.summarycreator.dto.Client;
-import project.summarycreator.dto.ListaDeAbacaxi;
-import project.summarycreator.dto.Sale;
-import project.summarycreator.dto.Salesman;
+import project.reportcreator.model.Client;
+import project.reportcreator.model.ListaDeAbacaxi;
+import project.reportcreator.model.Sale;
+import project.reportcreator.model.Salesman;
 
 public class FileParser {
 	
 	private ListaDeAbacaxi listaDeAbacaxi = new ListaDeAbacaxi();
 	
-	public ListaDeAbacaxi fileParser(Stream<String> linhas, String delimiter) {
+	public ListaDeAbacaxi parser(Stream<String> linhas, String delimiter) {
 		if(linhas == null) {
 			//LOG
 			return listaDeAbacaxi;
