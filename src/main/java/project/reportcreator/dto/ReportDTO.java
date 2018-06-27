@@ -1,13 +1,21 @@
 package project.reportcreator.dto;
 
+import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
+import org.apache.camel.dataformat.bindy.annotation.DataField;
+
+@CsvRecord(separator = "\n")
 public class ReportDTO {
 	
+	@DataField(pos = 1)
 	private int salesmanQuantity;
 
+	@DataField(pos = 2)
 	private int clientQuantity;
 
+	@DataField(pos = 3)
 	private int mostExpensiveSaleId;
 	
+	@DataField(pos = 4)
 	private String worstSalesmanName;
 
 	public String infosToWrite() {
@@ -23,6 +31,7 @@ public class ReportDTO {
 		builder.append(this.worstSalesmanName);
 		return builder.toString();
 	}
+	
 	public int getSalesmanQuantity() {
 		return salesmanQuantity;
 	}

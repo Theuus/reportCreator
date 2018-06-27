@@ -1,5 +1,7 @@
 package project.reportcreator.model;
 
+import project.reportcreator.dto.InputFileDTO;
+
 public class Salesman {
 	
 	private String cpf;
@@ -8,10 +10,10 @@ public class Salesman {
 	
 	private double salary;
 	
-	public Salesman(String[] lineSplit) {
-		this.cpf = lineSplit[1];
-		this.name = lineSplit[2];
-		this.salary = Double.parseDouble(lineSplit[3]);
+	public Salesman(InputFileDTO line) {
+		this.cpf = line.getField2();
+		this.name =  line.getField3();
+		this.salary = Double.parseDouble(line.getField4());
 	}
 
 	public String getCpf() {

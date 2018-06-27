@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import project.reportcreator.dto.InputFileDTO;
+
 public class Sale {
 
 	private int id;
@@ -24,12 +26,12 @@ public class Sale {
 		return salesmanName;
 	}
 
-	public Sale(String[] lineSplit) {
-		this.id = Integer.parseInt(lineSplit[1]);
-		String listSales = replace(lineSplit[2]);
+	public Sale(InputFileDTO inputFileDTO) {
+		this.id = Integer.parseInt(inputFileDTO.getField2());
+		String listSales = replace(inputFileDTO.getField3());
 		Stream<String> streamListItems = Stream.of(listSales.split(","));
 		streamListItems.forEach(s->listItem.add(new Item(s)));
-		this.salesmanName = lineSplit[3];
+		this.salesmanName = inputFileDTO.getField4();
 	}
 
 	private String replace(String lineSplit) {

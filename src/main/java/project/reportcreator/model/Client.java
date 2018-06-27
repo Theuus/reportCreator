@@ -1,5 +1,7 @@
 package project.reportcreator.model;
 
+import project.reportcreator.dto.InputFileDTO;
+
 public class Client {
 
 	private String cnpj;
@@ -20,10 +22,9 @@ public class Client {
 		return businessArea;
 	}
 
-	public Client(String[] lineSplit) {
-		this.cnpj = lineSplit[1];
-		this.name = lineSplit[2];
-		this.businessArea = lineSplit[3];
+	public Client(InputFileDTO inputFileDTO) {
+		this.cnpj = inputFileDTO.getField2();
+		this.name = inputFileDTO.getField3();
+		this.businessArea = inputFileDTO.getField4();
 	}
-
 }

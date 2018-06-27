@@ -3,7 +3,7 @@ package project.reportcreator.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaDeAbacaxi {
+public class ListEntity {
 	
 	private List<Salesman> listSalesman = new ArrayList<>();
 	

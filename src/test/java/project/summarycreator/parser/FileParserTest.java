@@ -9,23 +9,25 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import project.reportcreator.model.ListaDeAbacaxi;
+import project.reportcreator.model.ListEntity;
 import project.reportcreator.parser.FileParser;
+import project.summarycreator.utils.BuildInputFileDTO;
 
 public class FileParserTest {
 
 	@Test
 	public void test() throws IOException {
 		FileParser fileParser = new FileParser();
-		
-		Path caminho = Paths.get(System.getProperty("user.home"), 
-		        "data/in/teste.dat");
 
-		ListaDeAbacaxi listaDeAbacaxi = fileParser.parser(Files.lines(caminho), "ç");
+		BuildInputFileDTO buildInputFileDTO = new BuildInputFileDTO();
 		
-		assertEquals(2, listaDeAbacaxi.getListSalesman().size());
-		assertEquals(2, listaDeAbacaxi.getListClient().size());
-		assertEquals(2, listaDeAbacaxi.getListSale().size());
+		//buildInputFileDTO.build(field1, field2, field3, field4);
+		
+		//ListEntity listEntity = fileParser.parser(in);
+		
+//		assertEquals(2, listEntity.getListSalesman().size());
+//		assertEquals(2, listEntity.getListClient().size());
+//		assertEquals(2, listEntity.getListSale().size());
 	}
 
 }

@@ -1,34 +1,52 @@
 package project.reportcreator.parser;
 
-import java.util.stream.Stream;
+import org.apache.camel.Exchange;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
+import project.reportcreator.dto.InputFileDTO;
 import project.reportcreator.model.Client;
-import project.reportcreator.model.ListaDeAbacaxi;
+import project.reportcreator.model.ListEntity;
 import project.reportcreator.model.Sale;
 import project.reportcreator.model.Salesman;
 
+@Component
 public class FileParser {
 	
-	private ListaDeAbacaxi listaDeAbacaxi = new ListaDeAbacaxi();
+	private static final Logger log = LogManager.getLogger(FileParser.class);
 	
-	public ListaDeAbacaxi parser(Stream<String> linhas, String delimiter) {
-		if(linhas == null) {
-			//LOG
-			return listaDeAbacaxi;
-		}
-		linhas.forEach(line->flowDecision(delimiter, line));
+	private ListEntity listEntity = new ListEntity();
+	
+	public void convert(Exchange exchange) {
+		InputFileDTO inputFileDTO = (InputFileDTO) exchange.getIn().getBody();
 		
-		return listaDeAbacaxi;
+		parser(inputFileDTO);
+		
+		exchange.getOut().setBody(listEntity);
+	}
+	
+	protected ListEntity parser(InputFileDTO inputFileDTO) {
+		if(inputFileDTO == null) {
+			log.warn("No line to process");
+			return listEntity;
+		}
+		log.info("Processing line" + inputFileDTO);
+		flowDecision(inputFileDTO);
+		
+		return listEntity;
 	}
 
-	private void flowDecision(String delimiter, String line) {
-		String[] lineSplit = line.split(delimiter);
-		if("001".equals(lineSplit[0])) {
-			listaDeAbacaxi.addListSalesman(new Salesman(lineSplit));
-		} else if("002".equals(lineSplit[0])) {
-			listaDeAbacaxi.addListClient(new Client(lineSplit));
-		} else if("003".equals(lineSplit[0])) {
-			listaDeAbacaxi.addListSale(new Sale(lineSplit));
+	private void flowDecision(InputFileDTO inputFileDTO) {
+		if("001".equals(inputFileDTO.getField1())) {
+			log.info("Create a salesman");
+			listEntity.addListSalesman(new Salesman(inputFileDTO));
+		} else if("002".equals(inputFileDTO.getField1())) {
+			log.info("Create a Client");
+			listEntity.addListClient(new Client(inputFileDTO));
+		} else if("003".equals(inputFileDTO.getField1())) {
+			log.info("Create a Sale");
+			listEntity.addListSale(new Sale(inputFileDTO));
 		}
 	}
 

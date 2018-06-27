@@ -5,13 +5,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import project.reportcreator.model.Sale;
+import project.summarycreator.utils.BuildInputFileDTO;
 
 public class SaleTest {
 
 	@Test
 	public void testCreateSale() {
-		String line = "002ç1ç[1-2-30,2-3-10]çSalesmanName";
-		Sale sale = new Sale(line.split("ç"));
+		BuildInputFileDTO buildInputFileDTO = new BuildInputFileDTO();
+		Sale sale = new Sale(buildInputFileDTO.build("002","1","[1-2-30,2-3-10]", "SalesmanName"));
 		
 		assertEquals(1, sale.getId());
 		assertEquals("SalesmanName",sale.getSalesmanName());

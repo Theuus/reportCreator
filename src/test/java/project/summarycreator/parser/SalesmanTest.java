@@ -4,13 +4,14 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 import project.reportcreator.model.Salesman;
+import project.summarycreator.utils.BuildInputFileDTO;
 
 public class SalesmanTest extends TestCase {
 
 	@Test
 	public void testCreateSalesman() {
-		String linha = "001çCPFçNAMEç100";
-		Salesman salesman = new Salesman(linha.split("ç"));
+		BuildInputFileDTO buildInputFileDTO = new BuildInputFileDTO();
+		Salesman salesman = new Salesman(buildInputFileDTO.build("001", "CPF", "NAME", "100"));
 		
 		assertEquals("CPF",salesman.getCpf());
 		assertEquals("NAME",salesman.getName());
