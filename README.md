@@ -49,8 +49,9 @@ Este sistema deve estar sempre trabalhando. Todos os arquivos novos quando estiv
 Segue exemplo de relatório gerado:
 
 ```
-Summary
+Report
 Salesman Count: 2
-Customer Count: 2
-Most Expensive Sale Id: 10
-Worst Salesman Name: Renato
+Client Count: 2
+Most expensive sale ID: 10
+Worst Salesman: Renato
+
