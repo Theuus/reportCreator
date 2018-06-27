@@ -1,18 +1,19 @@
-package project.summarycreator.parser;
+package project.reportcreator.parser;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import project.reportcreator.model.Client;
-import project.summarycreator.utils.BuildInputFileDTO;
+import project.reportcreator.utils.BuildInputFileDTO;
 
-public class ClientTest {
+public class ParserClientTest {
 
 	@Test
 	public void testCreateClient() {
 		BuildInputFileDTO buildInputFileDTO = new BuildInputFileDTO();
-		Client client = new Client(buildInputFileDTO.build("002", "CNPJ", "NAME", "BussinesArea"));
+		ParserClient parserClient = new ParserClient();
+		Client client = (Client) parserClient.parser(buildInputFileDTO.build("002", "CNPJ", "NAME", "BussinesArea"));
 		
 		assertEquals("CNPJ",client.getCnpj());
 		assertEquals("NAME",client.getName());

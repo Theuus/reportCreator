@@ -1,4 +1,4 @@
-package project.reportcreator.config;
+package project.reportcreator.route;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

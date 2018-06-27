@@ -32,6 +32,13 @@ public class ReportDTO {
 		return builder.toString();
 	}
 	
+	public ReportDTO(int salesmanQuantity, int clientQuantity, int mostExpensiveSaleId, String worstSalesmanName) {
+		this.salesmanQuantity = salesmanQuantity;
+		this.clientQuantity = clientQuantity;
+		this.mostExpensiveSaleId = mostExpensiveSaleId;
+		this.worstSalesmanName = worstSalesmanName;
+	}
+	
 	public int getSalesmanQuantity() {
 		return salesmanQuantity;
 	}

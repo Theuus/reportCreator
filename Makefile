@@ -2,7 +2,7 @@ docker-build: build
 	docker build . -t report-creator:latest	
 
 docker-run: docker-build
-	docker run -v /tmp/input:/input -v /tmp/output:/output report-creator:latest
+	docker run -v $(HOME)/data/in:/input -v $(HOME)/data/out:/output report-creator:latest
 
 build:
-	mvn clean install -Dmaven.test.skip=true
+	mvn clean install -Dmaven.test.skip=false

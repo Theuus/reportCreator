@@ -1,4 +1,4 @@
-package project.summarycreator.utils;
+package project.reportcreator.utils;
 
 import project.reportcreator.dto.InputFileDTO;
 

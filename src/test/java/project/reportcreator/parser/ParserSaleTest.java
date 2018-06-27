@@ -1,18 +1,20 @@
-package project.summarycreator.parser;
+package project.reportcreator.parser;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import project.reportcreator.model.Sale;
-import project.summarycreator.utils.BuildInputFileDTO;
+import project.reportcreator.utils.BuildInputFileDTO;
 
-public class SaleTest {
+public class ParserSaleTest {
 
 	@Test
 	public void testCreateSale() {
 		BuildInputFileDTO buildInputFileDTO = new BuildInputFileDTO();
-		Sale sale = new Sale(buildInputFileDTO.build("002","1","[1-2-30,2-3-10]", "SalesmanName"));
+		ParserSale parserSale = new ParserSale();
+		
+		Sale sale = (Sale) parserSale.parser(buildInputFileDTO.build("002","1","[1-2-30,2-3-10]", "SalesmanName"));
 		
 		assertEquals(1, sale.getId());
 		assertEquals("SalesmanName",sale.getSalesmanName());

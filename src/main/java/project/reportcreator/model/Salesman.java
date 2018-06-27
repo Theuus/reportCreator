@@ -1,8 +1,6 @@
 package project.reportcreator.model;
 
-import project.reportcreator.dto.InputFileDTO;
-
-public class Salesman {
+public class Salesman implements Domain {
 	
 	private String cpf;
 	
@@ -10,10 +8,10 @@ public class Salesman {
 	
 	private double salary;
 	
-	public Salesman(InputFileDTO line) {
-		this.cpf = line.getField2();
-		this.name =  line.getField3();
-		this.salary = Double.parseDouble(line.getField4());
+	public Salesman(String cpf, String name, double salary) {
+		this.cpf = cpf;
+		this.name = name;
+		this.salary = salary;
 	}
 
 	public String getCpf() {
@@ -27,5 +25,6 @@ public class Salesman {
 	public double getSalary() {
 		return salary;
 	}
+	
 
 }

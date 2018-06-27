@@ -2,16 +2,15 @@ package project.reportcreator.route;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
-import org.apache.camel.dataformat.bindy.fixed.BindyFixedLengthDataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import project.reportcreator.config.ConfigBindy;
 import project.reportcreator.creator.ReportCreator;
 import project.reportcreator.dto.InputFileDTO;
 import project.reportcreator.dto.ReportDTO;
 import project.reportcreator.parser.FileParser;
 
-
+@Component
 public class MainRouteBuilder extends RouteBuilder {
 	
 	@Autowired
@@ -26,7 +25,7 @@ public class MainRouteBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 
-		BindyFixedLengthDataFormat bindyFixedLengthDataFormat = new BindyFixedLengthDataFormat(ReportDTO.class);
+		BindyCsvDataFormat bindyFixedLengthDataFormat = new BindyCsvDataFormat(ReportDTO.class);
 		BindyCsvDataFormat bindyCsvDataFormat = new BindyCsvDataFormat(InputFileDTO.class);
 		
 		from(getInputFileUri())
@@ -35,8 +34,7 @@ public class MainRouteBuilder extends RouteBuilder {
 			.split(body())
 			.streaming()
 				.log("LINE: ${body}")
-				.bean(fileParser)
-			.end()
+				.end()
 			.bean(reportCreator)
 			.marshal(bindyFixedLengthDataFormat)
 			.to(getOutFileUri())

@@ -3,49 +3,67 @@ package project.reportcreator.creator;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import org.apache.camel.Exchange;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import project.reportcreator.dto.InputFileDTO;
 import project.reportcreator.dto.ReportDTO;
+import project.reportcreator.model.Domain;
 import project.reportcreator.model.Item;
-import project.reportcreator.model.ListEntity;
+import project.reportcreator.model.MapDomainFromReport;
 import project.reportcreator.model.Sale;
+import project.reportcreator.parser.Parse;
+import project.reportcreator.parser.TypeLine;
 
 @Component
 public class ReportCreator {
 	
 	private static final Logger log = LogManager.getLogger(ReportCreator.class);
 
-	Item mostExpensiveSaleItem;
-	Sale mostExpensiveSale;
-	Map<String, Double> worstSalesmanMap = new HashMap<>();
+	private Item mostExpensiveSaleItem;
+	private Sale mostExpensiveSale;
+	private Map<String, Double> worstSalesmanMap;
+	private MapDomainFromReport mapFromReport;
 	
 	public void creator(Exchange exchange) {
-		ListEntity listEntity = (ListEntity) exchange.getIn().getBody();
+		worstSalesmanMap = new HashMap<>();
+		mapFromReport = new MapDomainFromReport();
+		
+		List<InputFileDTO> inputFileDTO = (List<InputFileDTO>) exchange.getIn().getBody();
+		inputFileDTO.forEach(line->createType(line));
 		
 		log.info("Creating report");
-		Stream<Sale> streamSale = listEntity.getListSale().stream();
+		Stream<Sale> streamSale = mapFromReport.getSales().stream();
 		streamSale.forEach(sale-> {
 			getGreaterSale(sale);
 			getWorstSalesman(sale);
 		});
 		
-		Entry<String, Double> min = Collections.min(worstSalesmanMap.entrySet(),Comparator.comparing(Entry::getValue));
+		Entry<String, Double> worstSalesman = Collections.min(worstSalesmanMap.entrySet(),Comparator.comparing(Entry::getValue));
 		
-		ReportDTO reportDTO = new ReportDTO();
-		reportDTO.setMostExpensiveSaleId(mostExpensiveSale.getId());
-		reportDTO.setWorstSalesmanName(min.getKey());
-		reportDTO.setClientQuantity(listEntity.getListClient().size());
-		reportDTO.setSalesmanQuantity(listEntity.getListSalesman().size());
+		int mostExpensiveSaleId = mostExpensiveSale.getId();
+		String worstSalesmanName = worstSalesman.getKey();
+		int clientQuantity = mapFromReport.getClient().size();
+		int salesmanQuantity = mapFromReport.getSalesman().size();
+		ReportDTO reportDTO = new ReportDTO(salesmanQuantity, clientQuantity, mostExpensiveSaleId, worstSalesmanName);
+		
 		log.info("Report created with infos: " + reportDTO.infosToWrite());
 		
 		exchange.getOut().setBody(reportDTO);
+	}
+
+	private void createType(InputFileDTO inputFileDTO) {
+		TypeLine typeLine = TypeLine.getTypeLine(inputFileDTO.getField1());
+		Parse parse = typeLine.getType();
+		Domain domain = parse.parser(inputFileDTO);
+		mapFromReport.add(typeLine, domain);
 	}
 
 	private void getGreaterSale(Sale sale) {

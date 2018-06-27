@@ -1,15 +1,19 @@
 package project.reportcreator.model;
 
-import project.reportcreator.dto.InputFileDTO;
-
-public class Client {
+public class Client implements Domain{
 
 	private String cnpj;
-	
+
 	private String name;
 	
 	private String businessArea;
 	
+	public Client(String cnpj, String name, String businessArea) {
+		this.cnpj = cnpj;
+		this.name = name;
+		this.businessArea = businessArea;
+	}
+
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -22,9 +26,4 @@ public class Client {
 		return businessArea;
 	}
 
-	public Client(InputFileDTO inputFileDTO) {
-		this.cnpj = inputFileDTO.getField2();
-		this.name = inputFileDTO.getField3();
-		this.businessArea = inputFileDTO.getField4();
-	}
 }
