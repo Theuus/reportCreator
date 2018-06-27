@@ -33,18 +33,14 @@ public class ReportCreator {
 	private MapDomainFromReport mapFromReport;
 	
 	public void creator(Exchange exchange) {
+		log.info("Creating report");
 		worstSalesmanMap = new HashMap<>();
 		mapFromReport = new MapDomainFromReport();
 		
 		List<InputFileDTO> inputFileDTO = (List<InputFileDTO>) exchange.getIn().getBody();
 		inputFileDTO.forEach(line->createType(line));
 		
-		log.info("Creating report");
-		Stream<Sale> streamSale = mapFromReport.getSales().stream();
-		streamSale.forEach(sale-> {
-			getGreaterSale(sale);
-			getWorstSalesman(sale);
-		});
+		calculatingGreaterSaleAndWorstSalesman();
 		
 		Entry<String, Double> worstSalesman = Collections.min(worstSalesmanMap.entrySet(),Comparator.comparing(Entry::getValue));
 		
@@ -57,6 +53,14 @@ public class ReportCreator {
 		log.info("Report created with infos: " + reportDTO.infosToWrite());
 		
 		exchange.getOut().setBody(reportDTO);
+	}
+
+	private void calculatingGreaterSaleAndWorstSalesman() {
+		Stream<Sale> streamSale = mapFromReport.getSales().stream();
+		streamSale.forEach(sale-> {
+			getGreaterSale(sale);
+			getWorstSalesman(sale);
+		});
 	}
 
 	private void createType(InputFileDTO inputFileDTO) {

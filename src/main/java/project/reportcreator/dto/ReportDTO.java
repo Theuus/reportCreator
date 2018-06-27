@@ -5,17 +5,17 @@ import org.apache.camel.dataformat.bindy.annotation.DataField;
 
 @CsvRecord(separator = "\n")
 public class ReportDTO {
-	
-	@DataField(pos = 1)
+
+	@DataField(name = "Salesman Count ", pos = 1)
 	private int salesmanQuantity;
 
-	@DataField(pos = 2)
+	@DataField(name = "Client Count ",pos = 2)
 	private int clientQuantity;
 
-	@DataField(pos = 3)
+	@DataField(name = "Most expensive sale ID ",pos = 3)
 	private int mostExpensiveSaleId;
 	
-	@DataField(pos = 4)
+	@DataField(name = "Worst Salesman ",pos = 4)
 	private String worstSalesmanName;
 
 	public String infosToWrite() {
